@@ -1,4 +1,4 @@
-# TrackProject_1_ImJeongTaek
+# TrackProject_2_ImJeongTaek
 
 메인 페이지: http://127.0.0.1:8000/
 
