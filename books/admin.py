@@ -21,11 +21,7 @@ class RentalAdmin(admin.ModelAdmin):
 
     def return_book_action(self, request, queryset):
         for rental in queryset:
-            rental.book.stock += 1
-            rental.book.save()
-            result = return_book.apply_async(args=[rental.id])
-            result.get()
-            rental.delete()
+            return_book.delay(rental.id)
 
         self.message_user(request, f'Successfully returned {len(queryset)} rentals.')
 

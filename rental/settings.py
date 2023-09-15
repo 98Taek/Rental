@@ -127,6 +127,3 @@ LOGOUT_REDIRECT_URL = 'books:book_list'
 AUTH_USER_MODEL = 'account.CustomUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
-CELERY_RESULT_BACKEND = 'rpc://'
