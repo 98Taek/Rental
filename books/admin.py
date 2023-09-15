@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from books.models import Book, Rental
+from books.tasks import return_book
 
 
 @admin.register(Book)
@@ -22,6 +23,8 @@ class RentalAdmin(admin.ModelAdmin):
         for rental in queryset:
             rental.book.stock += 1
             rental.book.save()
+            result = return_book.apply_async(args=[rental.id])
+            result.get()
             rental.delete()
 
         self.message_user(request, f'Successfully returned {len(queryset)} rentals.')
