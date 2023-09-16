@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_POST
 
-from books.forms import SearchForm
+from books.forms import SearchForm, RatingForm
 from books.models import Book, Rental
 
 
@@ -23,7 +24,8 @@ def book_list(request):
 
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    return render(request, 'books/book_detail.html', {'book': book})
+    form = RatingForm()
+    return render(request, 'books/book_detail.html', {'book': book, 'form': form})
 
 
 @login_required
@@ -58,3 +60,14 @@ def book_search(request):
             books = []
 
         return render(request, 'books/book_search.html', {'books': books})
+
+
+@require_POST
+def rate_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    form = RatingForm(data=request.POST)
+    if form.is_valid():
+        rating = form.cleaned_data['rating']
+        book.rating = rating
+        book.save()
+        return render(request, 'books/rate_book.html', {'book': book, 'rating': rating})

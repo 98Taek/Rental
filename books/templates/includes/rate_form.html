@@ -1,0 +1,5 @@
+<form action="{% url 'books:rate_book' book.id %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Rate">
+</form>
