@@ -11,6 +11,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=200)
     stock = models.IntegerField(default=0)
     summary = models.TextField(blank=True)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
 
     class Meta:
         ordering = ['title']
