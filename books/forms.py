@@ -12,5 +12,5 @@ class RatingForm(forms.ModelForm):
         model = Rating
         fields = ['rating']
         widgets = {
-            'rating': forms.NumberInput(attrs={'min': 1.0, 'max': 5.0, 'step': 0.1}),
+            'rating': forms.NumberInput(attrs={'min': 1.0, 'max': 5.0, 'step': 0.1, 'class': 'form-control'}),
         }
