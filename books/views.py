@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
 from books.forms import SearchForm, RatingForm
-from books.models import Book, Rental
+from books.models import Book, Rental, Rating
 
 
 def book_list(request):
@@ -68,6 +68,5 @@ def rate_book(request, book_id):
     form = RatingForm(data=request.POST)
     if form.is_valid():
         rating = form.cleaned_data['rating']
-        book.rating = rating
-        book.save()
+        Rating.objects.create(user=request.user, book=book, rating=rating)
         return render(request, 'books/rate_book.html', {'book': book, 'rating': rating})
