@@ -64,6 +64,7 @@ def book_search(request):
         return render(request, 'books/book_search.html', {'books': books})
 
 
+@login_required
 @require_POST
 def rate_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
