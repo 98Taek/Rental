@@ -14,8 +14,12 @@
             <p class="card-text">
                 {{ book.publisher|linebreaks }}
                 remaining stock: {{ book.stock }}<br>
-                Rating: {{ average_rating }}
-            </p>
+                {% if book.avg_rating %}
+                    <p>Average Rating: {{ book.avg_rating|floatformat:1 }}</p>
+                {% else %}
+                    <p>No ratings yet.</p>
+                {% endif %}
+
             {% include 'includes/rate_form.html' %}
             {% if book.stock %}
                 <form action="{% url 'books:rent_book' book.id %}" method="post" class="mt-3">

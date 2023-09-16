@@ -26,8 +26,9 @@ def book_list(request):
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     form = RatingForm()
-    average_rating = Book.objects.filter(pk=book_id).aggregate(avg_rating=Avg('rating'))['avg_rating']
-    return render(request, 'books/book_detail.html', {'book': book, 'form': form, 'average_rating': average_rating})
+    book.avg_rating = Rating.objects.filter(book=book).aggregate(avg_rating=Avg('rating'))['avg_rating']
+    return render(request, 'books/book_detail.html',
+                  {'book': book, 'form': form})
 
 
 @login_required
