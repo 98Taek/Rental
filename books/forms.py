@@ -6,4 +6,4 @@ class SearchForm(forms.Form):
 
 
 class RatingForm(forms.Form):
-    rating = forms.DecimalField(max_digits=2, decimal_places=1, min_value=1.0, max_value=5.0)
+    rating = forms.DecimalField(max_digits=2, decimal_places=1, min_value=1.0, max_value=5.0, required=False)
