@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from books.models import Book, Rental
+from books.models import Book, Rental, Rating
 from books.tasks import return_book
 
 
@@ -28,3 +28,10 @@ class RentalAdmin(admin.ModelAdmin):
         self.message_user(request, f'Successfully returned {len(queryset)} rentals.')
 
     return_book_action.short_description = 'Return selected rentals'
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ['user', 'book', 'rating']
+    list_filter = ['user', 'book']
+    search_fields = ['user', 'book']
