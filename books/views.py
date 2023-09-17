@@ -88,3 +88,11 @@ def review_book(request, book_id):
         Review.objects.create(user=request.user, book=book, body=review)
         return render(request, 'books/review_book.html', {'book': book, 'review': review})
     return redirect('books:book_detail', book_id)
+
+
+@login_required
+@require_POST
+def delete_review(request, review_id, book_id):
+    review = get_object_or_404(Review, id=review_id)
+    review.delete()
+    return redirect('books:book_detail', book_id)
