@@ -1,6 +1,6 @@
 from django import forms
 
-from books.models import Rating
+from books.models import Rating, Review
 
 
 class SearchForm(forms.Form):
@@ -14,3 +14,9 @@ class RatingForm(forms.ModelForm):
         widgets = {
             'rating': forms.NumberInput(attrs={'min': 1.0, 'max': 5.0, 'step': 0.1, 'class': 'form-control'}),
         }
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['body']
