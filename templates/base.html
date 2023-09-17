@@ -18,6 +18,7 @@
                 {% if request.user.is_authenticated %}
                     <div class="d-flex align-items-center">
                         <a href="{% url 'books:rental_list' %}" style="margin-right: 10px;">My Rental List</a>
+                        <a href="{% url 'books:profile' request.user.id %}" style="margin-right: 10px;">My Profile</a>
                         <form action="{% url 'logout' %}" method="post" style="margin: 0;">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Logout">

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ request.user.username }} profile{% endblock title %}
+
+{% block content %}
+    <h1 class="d-flex justify-content-left">Profile of {{ request.user.username }}</h1>
+    <div class="card mt-3">
+        <div class="card-header h2">
+            The number of book rentals
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ rentals }}</h5>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header h2">
+            Rating
+        </div>
+        {% for rating in ratings %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    Title: <a href="{% url 'books:book_detail' rating.book.id %}">{{ rating.book.title }}</a>
+                </h5>
+                <p class="card-text">
+                    Rating: {{ rating.rating }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="card mt-3">
+        <div class="card-header h3">
+            Review
+        </div>
+        {% for review in reviews %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    Title: <a href="{% url 'books:book_detail' review.book.id %}">{{ review.book.title }}</a>
+                </h5>
+                <p class="card-text">Review: {{ review.body }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
