@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Review{% endblock title %}
+
+{% block content %}
+    {% if review is None %}
+        <h1>You didn't leave a review on the book</h1>
+        <a href="{% url 'books:book_detail' book.id %}">Go back to book.</a>
+    {% else %}
+        <h1>You left a review on the book</h1>
+        <p><a href="{% url 'books:book_detail' book.id %}">
+            You can go back to book.
+        </a></p>
+    {% endif %}
+{% endblock content %}

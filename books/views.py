@@ -5,8 +5,8 @@ from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
-from books.forms import SearchForm, RatingForm
-from books.models import Book, Rental, Rating
+from books.forms import SearchForm, RatingForm, ReviewForm
+from books.models import Book, Rental, Rating, Review
 
 
 def book_list(request):
@@ -26,9 +26,10 @@ def book_list(request):
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     form = RatingForm()
+    review_form = ReviewForm()
     book.avg_rating = Rating.objects.filter(book=book).aggregate(avg_rating=Avg('rating'))['avg_rating']
     return render(request, 'books/book_detail.html',
-                  {'book': book, 'form': form})
+                  {'book': book, 'form': form, 'review_form': review_form})
 
 
 @login_required
@@ -74,3 +75,14 @@ def rate_book(request, book_id):
         rating = form.cleaned_data['rating']
         Rating.objects.create(user=request.user, book=book, rating=rating)
         return render(request, 'books/rate_book.html', {'book': book, 'rating': rating})
+
+
+@require_POST
+def review_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    form = ReviewForm(data=request.POST)
+    if form.is_valid():
+        review = form.cleaned_data['body']
+        Review.objects.create(user=request.user, book=book, body=review)
+        return render(request, 'books/review_book.html', {'book': book, 'review': review})
+    return redirect('books:book_detail', book_id)
