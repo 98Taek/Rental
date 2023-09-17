@@ -72,10 +72,19 @@ def book_search(request):
 def rate_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     form = RatingForm(data=request.POST)
-    if form.is_valid():
-        rating = form.cleaned_data['rating']
-        Rating.objects.create(user=request.user, book=book, rating=rating)
-        return render(request, 'books/rate_book.html', {'book': book, 'rating': rating})
+    try:
+        if form.is_valid():
+            rating = Rating.objects.get(user=request.user, book=book)
+            form = RatingForm(data=request.POST, instance=rating)
+            form.save()
+            return redirect('books:book_detail', book_id=book_id)
+
+    except Rating.DoesNotExist:
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.book = book
+            form.save()
+            return redirect('books:book_detail', book_id=book_id)
 
 
 @login_required
