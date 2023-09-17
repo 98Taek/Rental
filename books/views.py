@@ -99,3 +99,11 @@ def delete_review(request, review_id, book_id):
     else:
         messages.error(request, 'Only review authors can be deleted.')
     return redirect('books:book_detail', book_id)
+
+
+@login_required
+def profile(request, user_id):
+    reviews = Review.objects.filter(user_id=user_id)
+    ratings = Rating.objects.filter(user_id=user_id)
+    rentals = Rental.objects.filter(user_id=user_id).count()
+    return render(request, 'books/profile.html', {'reviews': reviews, 'ratings': ratings, 'rentals': rentals})
