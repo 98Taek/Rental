@@ -28,8 +28,9 @@ def book_detail(request, book_id):
     form = RatingForm()
     review_form = ReviewForm()
     book.avg_rating = Rating.objects.filter(book=book).aggregate(avg_rating=Avg('rating'))['avg_rating']
+    reviews = Review.objects.filter(book=book)
     return render(request, 'books/book_detail.html',
-                  {'book': book, 'form': form, 'review_form': review_form})
+                  {'book': book, 'form': form, 'review_form': review_form, 'reviews': reviews})
 
 
 @login_required
