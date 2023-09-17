@@ -37,7 +37,7 @@ class Rating(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    body = models.TextField()
+    body = models.TextField(verbose_name='review')
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
