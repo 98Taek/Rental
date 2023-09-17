@@ -25,7 +25,7 @@
             {% if book.stock %}
                 <form action="{% url 'books:rent_book' book.id %}" method="post" class="mt-3">
                     {% csrf_token %}
-                    <input type="submit" value="rental" class="btn btn-primary">
+                    <input type="submit" value="rental" class="btn btn-success">
                 </form>
             {% else %}
                 <p>
