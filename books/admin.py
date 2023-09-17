@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from books.models import Book, Rental, Rating
+from books.models import Book, Rental, Rating, Review
 from books.tasks import return_book
 
 
@@ -33,5 +33,12 @@ class RentalAdmin(admin.ModelAdmin):
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     list_display = ['user', 'book', 'rating']
+    list_filter = ['user', 'book']
+    search_fields = ['user', 'book']
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['user', 'book', 'body', 'created']
     list_filter = ['user', 'book']
     search_fields = ['user', 'book']
