@@ -94,5 +94,8 @@ def review_book(request, book_id):
 @require_POST
 def delete_review(request, review_id, book_id):
     review = get_object_or_404(Review, id=review_id)
-    review.delete()
+    if review.user == request.user:
+        review.delete()
+    else:
+        messages.error(request, 'Only review authors can be deleted.')
     return redirect('books:book_detail', book_id)
