@@ -6,25 +6,47 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('books', '0002_alter_book_stock_alter_rental_book_and_more'),
+        ("books", "0002_alter_book_stock_alter_rental_book_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Review',
+            name="Review",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', models.TextField()),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='books.book')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("body", models.TextField()),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "book",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="books.book"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created'],
-                'indexes': [models.Index(fields=['created'], name='books_revie_created_d5a857_idx')],
+                "ordering": ["-created"],
+                "indexes": [
+                    models.Index(
+                        fields=["created"], name="books_revie_created_d5a857_idx"
+                    )
+                ],
             },
         ),
     ]

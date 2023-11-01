@@ -4,22 +4,24 @@ from books.models import Rating, Review
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=100, label='Search Books')
+    query = forms.CharField(max_length=100, label="Search Books")
 
 
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
-        fields = ['rating']
+        fields = ["rating"]
         widgets = {
-            'rating': forms.NumberInput(attrs={'min': 1.0, 'max': 5.0, 'step': 0.1, 'class': 'form-control'}),
+            "rating": forms.NumberInput(
+                attrs={"min": 1.0, "max": 5.0, "step": 0.1, "class": "form-control"}
+            ),
         }
 
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['body']
+        fields = ["body"]
         widgets = {
-            'body': forms.TextInput(attrs={'class': 'form-control'}),
+            "body": forms.TextInput(attrs={"class": "form-control"}),
         }

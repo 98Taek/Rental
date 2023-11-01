@@ -12,7 +12,7 @@ class Book(models.Model):
     summary = models.TextField(blank=True)
 
     class Meta:
-        ordering = ['title']
+        ordering = ["title"]
 
     def __str__(self):
         return self.title
@@ -20,12 +20,14 @@ class Book(models.Model):
 
 class Rental(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.SET_NULL, related_name='books', null=True)
+    book = models.ForeignKey(
+        Book, on_delete=models.SET_NULL, related_name="books", null=True
+    )
     rental_date = models.DateField(auto_now_add=True)
     return_date = models.DateField(null=True, blank=True)
 
     class Meta:
-        ordering = ['rental_date']
+        ordering = ["rental_date"]
 
 
 class Rating(models.Model):
@@ -37,9 +39,9 @@ class Rating(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    body = models.TextField(verbose_name='review')
+    body = models.TextField(verbose_name="review")
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created']
-        indexes = [models.Index(fields=['created'])]
+        ordering = ["-created"]
+        indexes = [models.Index(fields=["created"])]

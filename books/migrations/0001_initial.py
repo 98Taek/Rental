@@ -7,7 +7,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,30 +15,66 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('author', models.CharField(max_length=200)),
-                ('publisher', models.CharField(max_length=200)),
-                ('stock', models.PositiveIntegerField()),
-                ('summary', models.TextField(blank=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("author", models.CharField(max_length=200)),
+                ("publisher", models.CharField(max_length=200)),
+                ("stock", models.PositiveIntegerField()),
+                ("summary", models.TextField(blank=True)),
             ],
             options={
-                'ordering': ['title'],
+                "ordering": ["title"],
             },
         ),
         migrations.CreateModel(
-            name='Rental',
+            name="Rental",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rental_date', models.DateField(auto_now_add=True)),
-                ('return_date', models.DateField(default=datetime.datetime(2023, 9, 17, 8, 1, 0, 414570, tzinfo=datetime.timezone.utc))),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='books', to='books.book')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("rental_date", models.DateField(auto_now_add=True)),
+                (
+                    "return_date",
+                    models.DateField(
+                        default=datetime.datetime(
+                            2023, 9, 17, 8, 1, 0, 414570, tzinfo=datetime.timezone.utc
+                        )
+                    ),
+                ),
+                (
+                    "book",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="books",
+                        to="books.book",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['rental_date'],
+                "ordering": ["rental_date"],
             },
         ),
     ]
